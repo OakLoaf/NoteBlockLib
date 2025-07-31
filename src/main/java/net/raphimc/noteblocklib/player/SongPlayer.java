@@ -117,7 +117,7 @@ public abstract class SongPlayer {
 
     /**
      * Sets the song that should be played.<br>
-     * Can be called in {@link #onSongFinish()}.
+     * Can be called in {@link #onSongFinished()}.
      *
      * @param song The song to play.
      */
@@ -219,7 +219,6 @@ public abstract class SongPlayer {
             }
 
             try {
-                this.preTick();
                 if (this.paused) {
                     return;
                 }
@@ -228,7 +227,7 @@ public abstract class SongPlayer {
 
                 this.tick++;
                 if (this.tick >= this.song.getNotes().getLengthInTicks()) {
-                    this.onSongFinish();
+                    this.onSongFinished();
                     return;
                 }
                 if (this.ticksPerSecond != this.song.getTempoEvents().getEffectiveTempo(this.tick)) {
@@ -250,13 +249,18 @@ public abstract class SongPlayer {
      * @return Whether the tick should be executed.
      */
     protected boolean shouldTick() {
-        return true;
+        return this.preTick();
     }
 
     /**
      * Called before each tick (Even when paused).
+     *
+     * @return Whether the tick should be executed.
+     * @see #shouldTick()
      */
-    protected void preTick() {
+    @Deprecated
+    protected boolean preTick() {
+        return true;
     }
 
     /**
@@ -269,14 +273,14 @@ public abstract class SongPlayer {
     /**
      * Called when the song has finished playing.
      */
-    protected void onSongFinish() {
+    protected void onSongFinished() {
         this.stop();
         this.onFinished();
     }
 
     /**
      * Called when the song has finished playing.
-     * @see #onSongFinish()
+     * @see #onSongFinished()
      */
     @Deprecated
     protected void onFinished() {
