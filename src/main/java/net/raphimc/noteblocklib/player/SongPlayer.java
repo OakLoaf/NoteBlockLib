@@ -253,17 +253,6 @@ public abstract class SongPlayer {
     }
 
     /**
-     * Called before each tick (Even when paused).
-     *
-     * @return Whether the tick should be executed.
-     * @see #shouldTick()
-     */
-    @Deprecated
-    protected boolean preTick() {
-        return true;
-    }
-
-    /**
      * Called each tick to play the notes for the current tick.
      *
      * @param notes The notes to play.
@@ -276,14 +265,6 @@ public abstract class SongPlayer {
     protected void onSongFinished() {
         this.stop();
         this.onFinished();
-    }
-
-    /**
-     * Called when the song has finished playing.
-     * @see #onSongFinished()
-     */
-    @Deprecated
-    protected void onFinished() {
     }
 
     /**
@@ -303,4 +284,22 @@ public abstract class SongPlayer {
         this.stop();
     }
 
+    /**
+     * Called before each tick (Even when paused).
+     *
+     * @return Whether the tick should be executed.
+     * @see #shouldTick()
+     */
+    @Deprecated
+    protected boolean preTick() {
+        return true;
+    }
+
+    /**
+     * Called when the song has finished playing.
+     * @see #onSongFinished()
+     */
+    @Deprecated
+    protected void onFinished() {
+    }
 }
