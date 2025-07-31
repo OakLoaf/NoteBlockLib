@@ -217,7 +217,9 @@ public abstract class SongPlayer {
             if (!this.shouldTick()) {
                 return;
             }
+
             try {
+                this.preTick();
                 if (this.paused) {
                     return;
                 }
@@ -248,18 +250,13 @@ public abstract class SongPlayer {
      * @return Whether the tick should be executed.
      */
     protected boolean shouldTick() {
-        return this.preTick();
+        return true;
     }
 
     /**
      * Called before each tick (Even when paused).
-     *
-     * @return Whether the tick should be executed.
-     * @see #shouldTick()
      */
-    @Deprecated
-    protected boolean preTick() {
-        return true;
+    protected void preTick() {
     }
 
     /**
